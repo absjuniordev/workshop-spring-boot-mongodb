@@ -13,6 +13,7 @@ import com.absjuniordev.workshopmongo.domain.User;
 import com.absjuniordev.workshopmongo.dto.AuthorDTO;
 import com.absjuniordev.workshopmongo.repository.PostRepository;
 import com.absjuniordev.workshopmongo.repository.UserRepository;
+import com.absjuniordev.workshopmongo.resources.CommentDTO;
 
 @Configuration
 public class Instantiation implements CommandLineRunner {
@@ -22,6 +23,8 @@ public class Instantiation implements CommandLineRunner {
 
 	@Autowired
 	private PostRepository postRepository;
+	
+	
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -42,6 +45,13 @@ public class Instantiation implements CommandLineRunner {
 				new AuthorDTO(maria));
 		Post post2 = new Post(null, sdf.parse("20/12/2024"), "Bom dia", "Hoje é o meu aniversario!",
 				new AuthorDTO(maria));
+
+		CommentDTO c1 = new CommentDTO("Boa viagem mano!", sdf.parse("21/12/2024"), new AuthorDTO(alex));
+		CommentDTO c2 = new CommentDTO("Aproveite", sdf.parse("22/12/2024"), new AuthorDTO(bob));
+		CommentDTO c3 = new CommentDTO("Tenha um otimo dia!", sdf.parse("23/12/2024"), new AuthorDTO(alex));
+		
+		post1.getComments().addAll(Arrays.asList(c1,c2));
+		post2.getComments().addAll(Arrays.asList(c3));
 
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		
