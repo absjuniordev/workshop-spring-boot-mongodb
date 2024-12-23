@@ -1,5 +1,6 @@
 package com.absjuniordev.workshopmongo.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,4 +21,8 @@ public class PostService {
 		return user.orElseThrow(() -> new ObjectNotFoundException("Usuario não encontrado"));
 	}	
 	
+	public List<Post> findByTitle(String text){
+		return repository.findByTitleContainingIgnoreCase(text);
+	}
+	 
 }
