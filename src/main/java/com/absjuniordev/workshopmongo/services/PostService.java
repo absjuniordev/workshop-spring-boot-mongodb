@@ -1,5 +1,6 @@
 package com.absjuniordev.workshopmongo.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,14 +20,19 @@ public class PostService {
 	public Post findById(String id) {
 		Optional<Post> user = repository.findById(id);
 		return user.orElseThrow(() -> new ObjectNotFoundException("Usuario não encontrado"));
-	}	
-	
+	}
+
 //	public List<Post> findByTitle(String text){
 //		return repository.findByTitleContainingIgnoreCase(text);
 //	}
-	
-	public List<Post> findByTitle(String text){
+
+	public List<Post> findByTitle(String text) {
 		return repository.seachTitle(text);
 	}
-	 
+
+	public List<Post> fullSearch(String text, Date minDate, Date maxDate) {
+		maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 * 1000);
+		return repository.fullSearch(text, minDate, maxDate);
+	}
+
 }
